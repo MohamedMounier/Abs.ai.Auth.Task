@@ -14,9 +14,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/routes.dart';
 
 
-void main() {
+void main()async {
   //TODO: initialize Firebase here
-  Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

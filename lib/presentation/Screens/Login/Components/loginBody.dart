@@ -1,4 +1,5 @@
 
+import 'package:abs_ai_auth_task/data/models/login_model.dart';
 import 'package:abs_ai_auth_task/presentation/Screens/Register/register.dart';
 import 'package:abs_ai_auth_task/presentation/components/buttons.dart';
 import 'package:abs_ai_auth_task/presentation/controllers/auth/login_bloc.dart';
@@ -31,13 +32,7 @@ class _LoginBodyState extends State<LoginBody> {
 
     return BlocConsumer<LoginBloc,LoginState>(
       listener:(context,state){
-        print("users from bloc = ${state.userModel}");
 
-        if(state.loginSteps==LoginSteps.isUserCheckingTypeFireError){
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Users Stream Fail ")));
-          print("users from bloc = ${state.userModel}");
-
-        }
 
         if(state.loginSteps==LoginSteps.isLoginUserInSuccess){
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Successfully Logged in ")));
@@ -191,7 +186,8 @@ class _LoginBodyState extends State<LoginBody> {
                                 if (emptyArea == false) {
                                   await displaySnackBar("loading");
                                   // TODO: add your code to log in by email & password
-                                  Navigator.pushNamed(context, HomePage.routeName);
+                                  context.read<LoginBloc>().add(LoginEventLogUserIn(EmailAndPassEntryModel(email: _emailController.text,password: _userPasswordController.text)));
+
                                 }
                               }),
 ///////////////////////////////////////////////////////////////////////////////////

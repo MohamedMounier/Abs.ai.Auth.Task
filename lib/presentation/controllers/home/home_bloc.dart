@@ -32,9 +32,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
 
   FutureOr<void> getUserByLoggedInId(GetLoggedInUserByUidEvent event, Emitter<HomeState> emit)async {
+    emit(state.copyWith(homeSteps: HomeSteps.isGettingCurrentUserLoading));
     final result = await getUserByUidUseCase(event.uid);
     result.fold((l) {
-      emit(state.copyWith(homeSteps: HomeSteps.isGettingCurrentUserError,requestState: RequestState.isLoading,homeErrorMsg: l.errorMessage));
+      emit(state.copyWith(homeSteps: HomeSteps.isGettingCurrentUserError,requestState: RequestState.isError,homeErrorMsg: l.errorMessage));
     }, (r) {
       emit(state.copyWith(homeSteps: HomeSteps.isGettingCurrentUserSuccess,requestState: RequestState.isSucc,currentUser: r));
 

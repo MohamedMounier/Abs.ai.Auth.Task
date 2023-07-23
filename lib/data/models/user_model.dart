@@ -6,11 +6,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
   final String email;
+  final String userName;
    String? password;
 
 
    UserModel(
       {required this.email,
+      required this.userName,
        this.password,
 
         });
@@ -20,13 +22,15 @@ class UserModel {
   factory UserModel.fromFirebase(dynamic fireData) {
     return UserModel(
         email: fireData["userEmail"],
-        password: fireData["userPassword"]
+        password: fireData["userPassword"],
+        userName: fireData["userName"]
     );
   }
 
   Map<String,dynamic>toMap() => {
-    "email":email,
-    "password":password,
+    "userEmail":email,
+    "userPassword":password,
+    "userName":userName,
 
   };
 }

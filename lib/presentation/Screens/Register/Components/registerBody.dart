@@ -21,6 +21,7 @@ class _RegisterBodyState extends State<RegisterBody> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController=TextEditingController();
   final TextEditingController _userPasswordController=TextEditingController();
+  final TextEditingController _userNameController=TextEditingController();
   @override
   Widget build(BuildContext context) {
     bool emptyArea = false;
@@ -38,7 +39,7 @@ class _RegisterBodyState extends State<RegisterBody> {
             showInSnackBar("Successfully Done ...${state.registerStep}", context);
             print("Successfully Done ...${state.registerStep}");
             context.read<RegisterBloc>().add(CreateUserEvent( UserModel(
-
+              userName: _userNameController.text,
                 email: _emailController.text,
                 password:
                 _userPasswordController.text,
@@ -47,6 +48,7 @@ class _RegisterBodyState extends State<RegisterBody> {
           if (state.registerStep == RegisterSteps.isAddedUserSuccess) {
             showInSnackBar("Successfully Done ...${state.registerStep}", context);
             print("Successfully Done ...${state.registerStep}");
+            Navigator.pushReplacementNamed(context, Login.routeName);
 
           }
 
@@ -103,6 +105,7 @@ child: SafeArea(
                     width: 220.w,
                     height: 90.h,
                     child: TextFormField(
+                      controller: _userNameController,
                       validator: (value) {
                         if (value!.isEmpty) {
                           displaySnackBar("enter your email");
@@ -146,6 +149,7 @@ child: SafeArea(
                     width: 220.w,
                     height: 90.h,
                     child: TextFormField(
+                      controller: _emailController,
                       validator: (value) {
                         if (value!.isEmpty) {
                           displaySnackBar("enter your email");
@@ -190,6 +194,7 @@ child: SafeArea(
                     width: 220.w,
                     height: 90.h,
                     child: TextFormField(
+                      controller: _userPasswordController,
                       validator: (value) {
                         if (value!.isEmpty) {
                           displaySnackBar("enter your email");
@@ -233,11 +238,15 @@ child: SafeArea(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         emptyArea = false;
+                        print("user ${_userNameController.text}");
+                        print("email ${_emailController.text}");
+                        print("pass ${_userPasswordController.text}");
+                        context.read<RegisterBloc>().add(RegisterUserEvent(email: _emailController.text, password: _userPasswordController.text));
+
                       }
                       if (emptyArea == false) {
                         await displaySnackBar("loading");
                         // TODO: add your code to register by email & password and store the user data in firestore
-                        Navigator.pushNamed(context, HomePage.routeName);
                       }
                     }),
 ///////////////////////////////////////////////////////////////////////////////////
