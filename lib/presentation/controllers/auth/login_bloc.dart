@@ -6,13 +6,9 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:abs_ai_auth_task/data/models/login_model.dart';
-import 'package:abs_ai_auth_task/data/repository/user_repo.dart';
 
 import '../../../core/enums/enums.dart';
-import '../../../core/error/failure.dart';
-import '../../../data/datasource/user_data_source.dart';
 import '../../../data/models/user_model.dart';
 import '../../../data/repository/auth_repo.dart';
 import '../../../domain/usecases/auth_use_cases/login_fire_use_case.dart';
@@ -28,7 +24,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
 
-final BaseUserRemoteDataSource _baseUserRemoteDataSource=UserRemoteDataSource();
 
   FutureOr<void> onLogin(LoginEventLogUserIn event, Emitter<LoginState> emit)async {
     emit(state.copyWith(loginSteps: LoginSteps.isLoginUserIn,requestState: RequestState.isLoading));

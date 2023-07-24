@@ -1,6 +1,5 @@
 part of 'register_bloc.dart';
 
-@immutable
  class RegisterState extends Equatable {
   final RequestState requestState;
   final RegisterSteps registerStep;
@@ -11,9 +10,9 @@ part of 'register_bloc.dart';
   final String? userUid;
   final bool isEmailValid;
   final bool isPasswordValid;
-   UserModel? userModel;
+   final UserModel? userModel;
 
-  RegisterState({
+  const RegisterState({
     this.requestState = RequestState.isNone,
     this.registerStep = RegisterSteps.isNone,
     this.registerErrorMessage = '',

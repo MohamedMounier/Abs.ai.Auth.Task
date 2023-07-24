@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 ///****************************************************
-///*** Created by Fady Fouad on 13-Aug-21 at 19:27.***
+///*** Created by Mohamed Mounier on 24-Aug-23 .***
 ///****************************************************
 
 class UserModel {

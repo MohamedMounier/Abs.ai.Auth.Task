@@ -12,7 +12,7 @@ part of 'login_bloc.dart';
   final bool isEmailValid;
   final bool isPasswordValid;
 
-  LoginState({
+  const LoginState({
     this.requestState = RequestState.isNone,
     this.loginSteps = LoginSteps.isNone,
     this.loginErrorMessage = '',
@@ -44,7 +44,7 @@ part of 'login_bloc.dart';
         isEmailValid: isPasswordVisible??this.isEmailValid,
         isPasswordValid: isPasswordVisible??this.isPasswordValid,
         userUid: userUid??this.userUid,
-        userModel: userModel??this.userModel,
+        userModel: userModel??userModel,
       );
 
   @override

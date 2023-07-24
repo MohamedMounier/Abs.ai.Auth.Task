@@ -1,13 +1,12 @@
 import 'package:abs_ai_auth_task/core/utils/constants.dart';
 import 'package:abs_ai_auth_task/presentation/components/buttons.dart';
-import 'package:abs_ai_auth_task/presentation/controllers/auth/login_bloc.dart';
 import 'package:abs_ai_auth_task/presentation/controllers/auth/register_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/enums/enums.dart';
 import '../../../../data/models/user_model.dart';
-import '../../HomePage.dart';
+import '../../../components/custom_snack_bar.dart';
 import '../../Login/login.dart';
 
 class RegisterBody extends StatefulWidget {
@@ -29,15 +28,16 @@ class _RegisterBodyState extends State<RegisterBody> {
     return BlocListener<RegisterBloc,RegisterState>(
         listener: (context, state) {
           if (state.requestState == RequestState.isError) {
-            showInSnackBar(state.registerErrorMessage, context);
+            showCustomSnackBar(context: context, isError: true, message: state.registerErrorMessage);
+
           }
           if (state.requestState == RequestState.isLoading) {
-            showInSnackBar("Loading...${state.registerStep}", context);
-            print("Loading...${state.registerStep}");
+            showCustomSnackBar(context: context, isError: false, message: "Loading...${state.registerStep}");
+
           }
           if(state.registerStep==RegisterSteps.isRegisterSuccess){
-            showInSnackBar("Successfully Done ...${state.registerStep}", context);
-            print("Successfully Done ...${state.registerStep}");
+            showCustomSnackBar(context: context, isError: false, message: "Successfully Done ...${state.registerStep}");
+
             context.read<RegisterBloc>().add(CreateUserEvent( UserModel(
               userName: _userNameController.text,
                 email: _emailController.text,
@@ -46,8 +46,8 @@ class _RegisterBodyState extends State<RegisterBody> {
              )));
           }
           if (state.registerStep == RegisterSteps.isAddedUserSuccess) {
-            showInSnackBar("Successfully Done ...${state.registerStep}", context);
-            print("Successfully Done ...${state.registerStep}");
+            showCustomSnackBar(context: context, isError: false, message: "Successfully Done ...${state.registerStep}");
+
             Navigator.pushReplacementNamed(context, Login.routeName);
 
           }
@@ -238,9 +238,7 @@ child: SafeArea(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         emptyArea = false;
-                        print("user ${_userNameController.text}");
-                        print("email ${_emailController.text}");
-                        print("pass ${_userPasswordController.text}");
+
                         context.read<RegisterBloc>().add(RegisterUserEvent(email: _emailController.text, password: _userPasswordController.text));
 
                       }
@@ -277,7 +275,4 @@ child: SafeArea(
     )));
   }
 }
-void showInSnackBar(String value, BuildContext context) {
-  ScaffoldMessenger.of(context)
-      .showSnackBar(new SnackBar(content: new Text(value)));
-}
+

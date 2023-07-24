@@ -1,8 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:abs_ai_auth_task/core/error/error_models/error_message_model.dart';
-import 'package:abs_ai_auth_task/core/error/exceptions.dart';
-import 'package:abs_ai_auth_task/core/error/failure.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 
 import '../models/user_model.dart';
 

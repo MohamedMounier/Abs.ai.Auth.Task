@@ -7,8 +7,6 @@ import 'package:abs_ai_auth_task/data/repository/user_repo.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:meta/meta.dart';
-import 'package:abs_ai_auth_task/core/usecases/base_usecases.dart';
 import 'package:abs_ai_auth_task/data/models/login_model.dart';
 
 import '../../../core/enums/enums.dart';
@@ -23,7 +21,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final RegisterFireBaseUseCase registerFireBaseUseCase=RegisterFireBaseUseCase(AuthRepo(AuthRemoteDataSource()));
   final CreateUserUseCase createUserUseCase=CreateUserUseCase(UserRepo(UserRemoteDataSource()));
 
-  RegisterBloc() : super(RegisterState()) {
+  RegisterBloc() : super(const RegisterState()) {
     on<RegisterUserEvent>(onRegister);
     on<CreateUserEvent>(createUser);
 
@@ -55,7 +53,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
   FutureOr<void> createUser(CreateUserEvent event, Emitter<RegisterState> emit)async {
     emit(state.copyWith(registerStep: RegisterSteps.isAddingUser,requestState: RequestState.isLoading));
-    final creationResult = await createUserUseCase(CreateUserUseCaseParams(event.userModel!, state.user!.user!.uid));
+    final creationResult = await createUserUseCase(CreateUserUseCaseParams(event.userModel, state.user!.user!.uid));
     creationResult.fold((l) {
       emit(state.copyWith(registerStep: RegisterSteps.isNotAddedUserError,requestState: RequestState.isError,registerErrorMessage: l.errorMessage));
 

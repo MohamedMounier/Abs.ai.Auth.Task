@@ -1,6 +1,5 @@
 part of 'home_bloc.dart';
 
-@immutable
  class HomeState extends Equatable{
   final RequestState requestState;
   final HomeSteps homeSteps;
@@ -8,7 +7,7 @@ part of 'home_bloc.dart';
   final UserModel? currentUser;
 
 
-   HomeState({
+   const HomeState({
 
     this.requestState = RequestState.isNone,
     this.homeSteps = HomeSteps.isNone,

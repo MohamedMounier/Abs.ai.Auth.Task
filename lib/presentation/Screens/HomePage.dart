@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
         body: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
             if (state.homeSteps==HomeSteps.isGettingCurrentUserLoading) {
-           return   Center(child: CircularProgressIndicator());
+           return   const Center(child: CircularProgressIndicator());
             } else {
               return Center(
                 child: Visibility(
@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
                       HomeSteps.isGettingCurrentUserSuccess,
                   child: Column(
                     children: [
-                      Text(
+                      const Text(
                         "successful authenticated",
                         textAlign: TextAlign.center,
 
@@ -36,11 +36,11 @@ class HomePage extends StatelessWidget {
                         "Welcome ... ${state.currentUser!.userName}",
                         textAlign: TextAlign.center,
 
-                        style: TextStyle(fontSize: mainButtonsSize),
+                        style: const TextStyle(fontSize: mainButtonsSize),
                       ),
                     ],
                   ),
-                  replacement: Center(child: CircularProgressIndicator(),),
+                  replacement: const Center(child: CircularProgressIndicator(),),
                 ),
               );
             }
